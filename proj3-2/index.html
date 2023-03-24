@@ -1,7 +1,123 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-2 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Amrita Rajan and William Louis  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">Assignment 3-2: Additional Features to PathTracer</h1>
+    <h2 align="middle">Amrita Rajan and William Louis</h2>
+    <h2 align="middle">https://cal-cs184-student.github.io/project-webpages-sp23-amrita-rajan/proj3-2/index.html</h2>
+
+    <div class="padded">
+
+        
+        * NOTE: For this project, you will choose TWO out of the four given parts to complete. One of those parts must be Part 1 or Part 2. In other words, you can choose any combination of two parts except the pair (Part 3, Part 4).
+
+
+        <h3 align="middle">Part 2. Microfacet Material</h3>
+        <p><b>
+            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with $\alpha$ set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
+        </b></p>
+		<table align="center">
+			<tr align="center">
+			<td><img src="0.005.png"><figcaption>Alpha = 0.005</figcaption></td>
+			<td><img src="0.05.png"><figcaption>Alpha = 0.05</figcaption></td> 
+			</tr>
+			<tr align="center">
+			<td><img src="0.25.png"><figcaption>Alpha = 0.25</figcaption></td>
+			<td><img src="0.5.png"><figcaption>Alpha = 0.5</figcaption></td>  
+			</tr>
+		</table>
+        <p>
+            As the alpha value increases, we can see that the surface of the dragon rendered gets less glossy. An incredibly low alpha value has the surface with the most gloss while the highest one, 0.5, does not have as much. We are able to distinguish between these images by how glossy they are.
+        </p>
+        <br>
+		
+        <p><b>
+            Show two images of scene `CBbunny_microfacet_cu.dae` rendered using cosine hemisphere sampling (default) and your importance sampling. The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Briefly discuss their difference.
+        </b></p>
+		<table align="center">
+			<tr align="center">
+			<td><img src="cos.png"><figcaption>Cosine Hemisphere Sampling</figcaption></td>
+			<td><img src="imp.png"><figcaption>Importance Sampling</figcaption></td> 
+			</tr>
+		</table>
+        <p>
+            We can see that using cosine hemisphere sampling for w_i seems to have more white spots show up in the bunny. It has a more “spotty” look compared to when we use importance sampling. 
+        </p>
+        <br>
+        <p><b>
+            Show at least one image with some other conductor material, replacing `eta` and `k`. Note that you should look up values for real data rather than modifying them arbitrarily. Tell us what kind of material your parameters correspond to. 
+        </b></p>
+		<table align="center">
+			<tr align="center">
+			<td><img src="ber.png"></td>
+			</tr>
+		</table>
+        <p>
+            We used the eta and k vector values that the element Beryllium corresponds to.
+        </p>
+        <br>
+
+
+
+        <h3 align="middle">Part 4. Depth of Field</h3>
+        <b>
+            For these subparts, we recommend using a microfacet BSDF scene to show off the cool out of focus effects you can get with depth of field!
+        </b>
+        <p><b>
+            In a few sentences, explain the differences between a pinhole camera model and a thin-lens camera model. 
+        </b></p>
+        <p>
+            With a pinhole camera model, everything is in focus. When we shoot a ray in the direction (x, y, -1), the image receives it at (-x, -y, 1). The image will only receive radiance from (0, 0, 0) with this model. On the other hand, with the thin-lens camera model, only objects that are within focal distance are in focus. The origin of the ray will be sampled from the lens and it will be in the direction of the plane of focus. It will have the same intersection as the ray from the pinhole camera since rays with the same point on the plane of focus will have the same focused image point. 
+        </p>
+        <br>
+        <p><b>
+            Show a "focus stack" where you focus at 4 visibly different depths through a scene. Make sure to include all screenshots.
+        </b></p>
+        <p>
+            We rendered these images using 8 threads, 512 samples, 12 levels, 4 light rays, and 0.23 lens radius.
+        </p>
+		<table align="center">
+			<tr align="center">
+			<td><img src="focus1.png" style="width:35%"><figcaption>Depth = 4.5</figcaption></td>
+			<td><img src="focus2.png" style="width:35%"><figcaption>Depth = 7</figcaption></td> 
+			</tr>
+			<tr align="center">
+			<td><img src="focus3.png" style="width:35%"><figcaption>Depth = 11</figcaption></td>
+			<td><img src="focus4.png" style="width:35%"><figcaption>Depth = 15</figcaption></td>  
+			</tr>
+		</table>
+        <br>
+        <p><b>
+            Show a sequence of 4 pictures with visibly different aperture sizes, all focused at the same point in a scene. Make sure to include all screenshots.
+        </b></p>
+        <p>
+            We rendered these images with 8 threads, 512 samples, 12 level, 4 light rays, and 4.5 focal length.
+        </p>
+		<table align="center">
+			<tr align="center">
+			<td><img src="focus1.png" style="width:35%"><figcaption>Size = 0.23</figcaption></td>
+			<td><img src="size2.png" style="width:35%"><figcaption>Size = 0.5</figcaption></td> 
+			</tr>
+			<tr align="center">
+			<td><img src="size3.png" style="width:35%"><figcaption>Size = 1</figcaption></td>
+			<td><img src="size4.png" style="width:35%"><figcaption>Size = 1.5</figcaption></td>  
+			</tr>
+		</table>
+        <br>
+
+    </div>
+</body>
 </html>
